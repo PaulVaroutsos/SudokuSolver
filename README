@@ -1,0 +1,68 @@
+=== Sudoku Solver ===
+Contributors: Paul Varoutsos
+Link: www.GitHub.com/PaulVaroutsos
+Tags: SAT, SAT-solver, solver, Sudoku, Java
+Requires at least: Java 1.5
+
+A SAT-solver based Sudoku puzzle solver.
+
+== Description ==
+
+This is a Sudoku solver that transforms  Sudoku puzzle read in from a file and transforms
+the puzzle into an instance of a the famous SAT problem.  
+
+Read LICENSE for license information. 
+
+Credit: Author (Paul Varoutsos) should be given proper credit if source is used.
+
+== Installation ==
+
+1. Check out code from Github.
+2. Open project in NetBeans or IDE of choice.
+3. Compile project.
+4. Run Project or execute dist/SudokuSolver.jar
+
+Note: Project should be run from a command line or inside NetBeans as there
+is currently no GUI.
+
+== Example Sudoku puzzle file format ==
+
+Comment lines start with a 'c' (no quotes)
+Puzzle values are one one line each with the format:
+row column value 0
+So if the first row, fifth colmn has a 3:
+1 5 3 0
+
+Example.sudoku
+
+c An example Sudoku puzzle.
+1 1 3 0
+1 3 5 0
+1 4 6 0
+1 6 2 0
+2 9 9 0
+3 2 2 0
+3 5 8 0
+3 8 1 0
+4 1 5 0
+4 4 9 0
+4 7 1 0
+4 8 2 0
+5 5 4 0
+6 2 3 0
+6 3 2 0
+6 6 7 0
+6 9 6 0
+7 2 6 0
+7 5 5 0
+7 8 7 0
+8 1 4 0
+9 4 4 0
+9 6 6 0
+9 7 5 0
+9 9 3 0
+
+== Changelog ==
+
+1.0 Initial checkin. 
+
