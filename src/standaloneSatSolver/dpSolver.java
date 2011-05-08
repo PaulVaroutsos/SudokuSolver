@@ -21,13 +21,14 @@
  * @author Dr. Baliga, Paul Varoutsos, Tom Devito
  *
  */
-package satsolver;
+package standaloneSatSolver;
 
 import java.io.FileNotFoundException;
+import javax.swing.JFileChooser;
 
 public class dpSolver {
 
-private Formula formula;
+    private Formula formula;
 
     /**
      * Reads in the formula and creates a formula object
@@ -35,9 +36,13 @@ private Formula formula;
      * @param filename - The file path that holds the
      *                   file containing the formula to solve.
      */
-    private void readFormula(StringBuffer formulaString) {
+    private void readFormula(String filename) {
 
-            formula = new Formula(formulaString);
+        try {
+            formula = new Formula(filename);
+        } catch (FileNotFoundException e) {
+            System.err.print("File not found.");
+        }
     }
 
     /**
@@ -125,9 +130,9 @@ private Formula formula;
      *
      * @param fname - The filename that contains the formula to solve.
      */
-    public int[] solve(StringBuffer formulaString) {
+    public int[] solve(String fname) {
 
-        readFormula(formulaString);
+        readFormula(fname);
 
         if (dp()) {
             success();
@@ -182,6 +187,25 @@ private Formula formula;
                     return false;
                 }
             }
+        }
+    }
+
+    /**
+     * This is the main function used to run the program.
+     *
+     * @param args - The filename that contains the formula  to solve
+     */
+    public static void main(String[] args) {
+
+        JFileChooser fc = new JFileChooser();
+        String pathname = null;
+        int response = fc.showOpenDialog(null);
+
+        if (response == 0) {  //User chose a file
+
+            pathname = fc.getSelectedFile().getPath();
+            new dpSolver().solve(pathname);
+
         }
     }
 }

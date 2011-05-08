@@ -8,8 +8,10 @@ A SAT-solver based Sudoku puzzle solver.
 
 == Description ==
 
-This is a Sudoku solver that transforms  Sudoku puzzle read in from a file and transforms
-the puzzle into an instance of a the famous SAT problem.  
+This is a Sudoku solver that transforms a Sudoku puzzle, read in from a file, and transforms
+the puzzle into an instance of a the famous SAT problem.  The SAT-solver will then solve
+the puzzle as a SAT problem and the Sudoku solver will unmap the SAT solver output and 
+map it back into a sudoku puzzle.
 
 Read LICENSE for license information. 
 
@@ -17,7 +19,7 @@ Credit: Author (Paul Varoutsos) should be given proper credit if source is used.
 
 == Installation ==
 
-1. Check out code from Github.
+1. Download code from Github.
 2. Open project in NetBeans or IDE of choice.
 3. Compile project.
 4. Run Project or execute dist/SudokuSolver.jar
@@ -28,10 +30,12 @@ is currently no GUI.
 == Example Sudoku puzzle file format ==
 
 Comment lines start with a 'c' (no quotes)
-Puzzle values are one one line each with the format:
+Puzzle values are given on one line each with the format:
 row column value 0
 So if the first row, fifth colmn has a 3:
 1 5 3 0
+
+Empty Sudoku squares are not included.
 
 Example.sudoku
 

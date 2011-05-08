@@ -21,9 +21,10 @@
  * @author Tom De Vito, Paul Varoutsos
  *
  */
-package satsolver;
+package standaloneSatSolver;
 
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.Stack;
@@ -83,10 +84,11 @@ public class Formula {
     /**
      * Constructor that instantiates a formula object.
      *
-     * @param formulaString  - The formula as a StringBuffer (String)
+     * @param file  - The file that holds the location of the file
+     *                containing the formula to solve.
      * @throws FileNotFoundException - If the file is not found
      */
-    public Formula(StringBuffer formulaString)  {
+    public Formula(String file) throws FileNotFoundException {
         LinkedList<Integer> originalFormula = new LinkedList<Integer>();
         variablesAffected = new Stack<LinkedList<Integer>>();
         unitVariables = new TreeSet<Integer>();
@@ -101,8 +103,9 @@ public class Formula {
         int varTotal;
         int clauseTotal = 0;
 
-        // Create a  scanner to read the formula
-        Scanner sc = new Scanner(formulaString.toString());
+        // Create a file reader and scanner to read the file
+        FileReader cnfFile = new FileReader(file);
+        Scanner sc = new Scanner(cnfFile);
 
         // Go through each line
         while (sc.hasNextLine()) {
@@ -497,7 +500,7 @@ public class Formula {
     }
 
     /**
-     * Should only be used to get the final assignment when a solution is
+     * Should only be used to get the final assigment when a solution is
      * found.
      * @return - The array containing the solution, null if no solution was
      *           found
