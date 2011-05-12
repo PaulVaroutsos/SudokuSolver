@@ -1,17 +1,23 @@
 === Sudoku Solver ===
 Contributors: Paul Varoutsos
 Link: www.GitHub.com/PaulVaroutsos
-Tags: SAT, SAT-solver, solver, Sudoku, Java
+Tags: SAT, SAT-solver, satisfiability, solver, Sudoku, Java
 Requires at least: Java 1.5
 
 A SAT-solver based Sudoku puzzle solver.
 
 == Description ==
 
-This is a Sudoku solver that transforms a Sudoku puzzle, read in from a file, and transforms
-the puzzle into an instance of a the famous SAT problem.  The SAT-solver will then solve
-the puzzle as a SAT problem and the Sudoku solver will unmap the SAT solver output and 
-map it back into a sudoku puzzle.
+This is a Sudoku solver that transforms a Sudoku puzzle into an instance of a the famous satisfiability problem.
+This Sudoku solver consists of two parts:
+1. A Sudoku-to-SAT and SAT-to-Sudoku mapper
+2. A SAT-Solver.
+The mapper will first take the input of the Sudoku puzzle in from a file, using the file format outlined below.  
+It will then take the Sudoku input file and map it into the CNF SAT format used by most SAT solvers.  From there it
+will pass the SAT-encoded Sudoku puzzle to the SAT solver to be solved.  After the SAT solver is finished, it will
+then pass the result back to the mapper where the result will be unmapped back into a solved Sudoku puzzle.
+
+There is also a standalone SAT solver in its own package which can be used to read in CNF format SAT files.
 
 Read LICENSE for license information. 
 
@@ -68,5 +74,5 @@ c An example Sudoku puzzle.
 
 == Changelog ==
 
-1.0 Initial checkin. 
+1.0 Initial version. 
 
