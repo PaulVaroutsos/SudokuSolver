@@ -6,11 +6,10 @@
  * A formula is empty if all of the clauses are satisfied with
  * the current assignment.
  *
- * A clause is empty if all the variables are assign and it is
+ * A clause is empty if all the variables are assigned and the clause is
  * not satisfied.
  *
- * When setting variables in a formula the values are assumed as
- * the following:
+ * When setting variables in a formula the values are assumed as follows:
  * 		false:       0
  * 		true:        1
  * 		unassigned: -1
@@ -31,7 +30,7 @@ public class dpSolver {
     private Formula formula;
 
     /**
-     * Reads in the formula and creates a formula object
+     * Reads in the formula and creates a formula object.
      *
      * @param filename - The file path that holds the
      *                   file containing the formula to solve.
