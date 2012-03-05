@@ -6,24 +6,21 @@
  * A formula is empty if all of the clauses are satisfied with
  * the current assignment.
  *
- * A clause is empty if all the variables are assign and it is
+ * A clause is empty if all the variables are assigned and the clause is
  * not satisfied.
  *
- * When setting variables in a formula the values are assumed as
- * the following:
- * 		false:       0
- * 		true:        1
- * 		unassigned: -1
+ * When setting variables in a formula the values are assigned as follows:
+ *      false:       0
+ *      true:        1
+ *      unassigned: -1
  *
- * Variables chosen based on the Jeroslow-Wang heuristic.
+ * Branch variables are chosen based on the Jeroslow-Wang heuristic.
  *
  * May 2009
  * @author Dr. Baliga, Paul Varoutsos, Tom Devito
  *
  */
 package satsolver;
-
-import java.io.FileNotFoundException;
 
 public class dpSolver {
 
@@ -93,7 +90,7 @@ private Formula formula;
     /**
      * Unsets a variable to an unsigned value and undoes
      * any unit propagation that was done as a result of
-     * setting that  variable.
+     * setting that variable.
      */
     private void unset() {
 
@@ -142,7 +139,7 @@ private Formula formula;
      * This is the recursive method that performs the Davis-Putnam
      * algorithm.
      * @return - True if a formula is empty (satisfiable)
-     * 		   - False if a formula has an empty clause.
+     * 	       - False if a formula has an empty clause.
      */
     private boolean dp() {
 

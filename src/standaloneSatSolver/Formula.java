@@ -25,10 +25,7 @@ package standaloneSatSolver;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.LinkedList;
-import java.util.Scanner;
-import java.util.Stack;
-import java.util.TreeSet;
+import java.util.*;
 
 public class Formula {
 
@@ -40,9 +37,10 @@ public class Formula {
 	// formula is always the currentFormula.peek()
 	public Stack<LinkedList<Integer>> currentFormula = new Stack<LinkedList<Integer>>();
 
-	// Formula that never changes throughout this program
+	// Formula that represents the formula
         // Each array represents a clause
-	private int[][] formula;
+        // Clauses are added as they are learned
+	private ArrayList<int[]> formula;
 
 	// Holds the ranks of each variable and its negation.
         // Ranks are computed using the Jeroslow-Wang heuristic.
@@ -145,8 +143,10 @@ public class Formula {
                 clauseTotal = Integer.parseInt(parse[3]);
 
                 // Initialize the formula
-                formula = new int[clauseTotal][];
-
+                formula = new ArrayList<int[]>(clauseTotal);
+                for(int i = 0; i < clauseTotal; i++){
+                    formula.add(new int[1]);
+                }
             }
             // Put the value into the formula
             else {
@@ -167,11 +167,11 @@ public class Formula {
 
                     // set the number of literals for this clause
                     // in the formula array
-                    formula[clauseCount] = new int[varInClause];
+                    formula.set(clauseCount, new int[varInClause]);
 
                     // now fill the clause with the correct values
                     for (int i = 0; i < varInClause; i++) {
-                        formula[clauseCount][i] = Integer.parseInt(parse[i]);
+                        formula.get(clauseCount)[i] = Integer.parseInt(parse[i]);
                     }
                     clauseCount++;
                 }
@@ -255,9 +255,9 @@ public class Formula {
                 int trueClauseSize = 0;
 
                 // Check each variable in the clause
-                for (int j = 0; j < formula[curClause].length; j++) {
+                for (int j = 0; j < formula.get(curClause).length; j++) {
 
-                    int variableToCheck = formula[curClause][j];
+                    int variableToCheck = formula.get(curClause)[j];
 
                     // if the clause is satisfied
                     if ((variableToCheck > 0 && currentAssignment[variableToCheck] == TRUE)
@@ -288,21 +288,21 @@ public class Formula {
 
                     // check if clause has a unit variable and add to unitVars set
                     if (trueClauseSize == 1) {
-                        for (int i = 0; i < formula[curClause].length; i++) {
+                        for (int i = 0; i < formula.get(curClause).length; i++) {
 
-                            if (currentAssignment[abs(formula[curClause][i])] == UNASSIGNED) {
+                            if (currentAssignment[abs(formula.get(curClause)[i])] == UNASSIGNED) {
 
                                 // check if a contradiction appears in the set already
                                 // i.e (1 is in the set and we are trying to add -1)
                                 // if it does, we can tell right away that this path
                                 // will not lead to a solution, end early
-                                if (unitVariables.contains(-formula[curClause][i])) {
+                                if (unitVariables.contains(-formula.get(curClause)[i])) {
                                     hasEmptyClause = true;
                                     currentFormula.push(newFormula);
                                     variablesAffected.push(variablesSetbyUP);
                                     return;
                                 } else {
-                                    unitVariables.add(formula[curClause][i]);
+                                    unitVariables.add(formula.get(curClause)[i]);
                                     break;
                                 }
                             }
@@ -337,18 +337,18 @@ public class Formula {
 
             trueClauseSize = 0;
 
-            for (int i = 0; i < formula[clause].length; i++) {
-                int varToCheck = formula[clause][i];
+            for (int i = 0; i < formula.get(clause).length; i++) {
+                int varToCheck = formula.get(clause)[i];
                 if (currentAssignment[abs(varToCheck)] == UNASSIGNED) {
                     trueClauseSize++;
                 }
             }
 
             // loop through the clause and update each rank for the variables
-            for (int i = 0; i < formula[clause].length; i++) {
+            for (int i = 0; i < formula.get(clause).length; i++) {
 
                 // get the current variable that is in the clause at this index
-                int tempVar = formula[clause][i];
+                int tempVar = formula.get(clause)[i];
 
                 // test to see if the variable is negated or not
                 if (tempVar > 0 && (currentAssignment[tempVar] == UNASSIGNED)) {
@@ -456,7 +456,10 @@ public class Formula {
     /**
      * This method undoes unit propagation by going back to the previous version of
      * the formula and unassigning all values to the variables that were set
-     * during unit propagation
+     * during unit propagation.
+     * 
+     * If unit propagation occurred, add a learned clause to prevent a similar
+     * tree traversal.
      *
      */
     public void undoProp() {
@@ -467,8 +470,18 @@ public class Formula {
         // unset propagation
         if (variablesAffected.size() > 1) {
             LinkedList<Integer> temp = variablesAffected.pop();
+            int[] learnedClause = new int[temp.size()];
             for (Integer i : temp) {
                 currentAssignment[abs(i)] = UNASSIGNED;
+            }
+           
+            //add a learned clause if it was not just a branch variable
+            if(learnedClause.length > 1){
+                for(int i = 0; i < learnedClause.length; i++){
+                    learnedClause[i] = -temp.get(i);
+                }
+                //add clause to formula
+                formula.add(learnedClause);
             }
         }
 
