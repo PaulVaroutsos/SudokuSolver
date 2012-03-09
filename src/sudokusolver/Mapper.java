@@ -1,6 +1,6 @@
 /**
  * This class is the Mapper.  This class creates all 11988 clauses that are
- * required for all sudoku puzzles.  Thse are constraitns such as:
+ * required for all sudoku puzzles.  These are constraints such as:
  *   1.1.A  each number must occur at least once in a row
  *   1.1.B  each number must occur only once in the row
  *   2.1.A  each number must occur at least once in the column
@@ -25,7 +25,6 @@
  */
 package sudokusolver;
 
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class Mapper {

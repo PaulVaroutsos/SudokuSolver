@@ -13,11 +13,11 @@ public class UnMapper {
     //solution is found
     private static int[][] sudokuPuzzle = new int[9][9];
 
-    public static void unMap(int[] solution) throws FileNotFoundException {
+    public static int[][] unMap(int[] solution) throws FileNotFoundException {
 
         if (solution == null) {
             System.out.println("There is no solution for this puzzle.");
-            return;
+            return sudokuPuzzle;
         }
 
         // 345 = row 3, column 4, box contains a 5
@@ -64,10 +64,11 @@ public class UnMapper {
         }
 
         System.out.println(output);
+        return sudokuPuzzle;
     }
 
     /**
-     * Creates the array index equivelant of the number
+     * Creates the array index equivalent of the number
      * @param x The number you want to translate to an index
      * @return x-1
      */

@@ -2,13 +2,11 @@
  * This class takes in a sudoku files and reads all the clauses that are
  * specific to that puzzle.  It then outputs the information line at the top
  * in the form of:  "p cnf 999 " + totalClauseCount"  It will then list all
- * of the clauses that are specific to the pizzle defined by the file used in
- * the constructor of the object
+ * of the clauses that are specific to the puzzle passed into the constructor.
  */
 package sudokusolver;
 
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
