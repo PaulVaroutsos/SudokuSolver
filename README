@@ -8,16 +8,17 @@ A SAT-solver based Sudoku puzzle solver.
 
 == Description ==
 
-This is a Sudoku solver that transforms a Sudoku puzzle into an instance of a the famous satisfiability problem.
-This Sudoku solver consists of two parts:
+This is a Sudoku solver that transforms a Sudoku puzzle into an instance of a the NP-complete SAT problem.
+This Sudoku solver consists of three parts:
 1. A Sudoku-to-SAT and SAT-to-Sudoku mapper
 2. A SAT-Solver.
+3. A JFrame used to open the sudoku puzzle file.
 The mapper will first take the input of the Sudoku puzzle in from a file, using the file format outlined below.  
-It will then take the Sudoku input file and map it into the CNF SAT format used by most SAT solvers.  From there it
+It will then take the puzzle and map it into the CNF SAT format used by most SAT solvers.  From there it
 will pass the SAT-encoded Sudoku puzzle to the SAT solver to be solved.  After the SAT solver is finished, it will
-then pass the result back to the mapper where the result will be unmapped back into a solved Sudoku puzzle.
+then pass the result back to the unmapper where the result will be unmapped back into a completed Sudoku puzzle.
 
-There is also a standalone SAT solver in its own package which can be used to read in CNF format SAT files.
+There is also a standalone SAT solver in its own package which can be used to read in any CNF format SAT files.
 
 Read LICENSE for license information. 
 
@@ -25,13 +26,8 @@ Credit: Author (Paul Varoutsos) should be given proper credit if source is used.
 
 == Installation ==
 
-1. Download code from Github.
-2. Open project in NetBeans or IDE of choice.
-3. Compile project.
-4. Run Project or execute dist/SudokuSolver.jar
-
-Note: Project should be run from a command line or inside NetBeans as there
-is currently no GUI.
+1. Download the SudokuSolver.jar file.
+2. Run the JAR and open the sudoku puzzle file of your choice.
 
 == Example Sudoku puzzle file format ==
 
@@ -74,5 +70,5 @@ c An example Sudoku puzzle.
 
 == Changelog ==
 
+1.1 GUI added.
 1.0 Initial version. 
-
